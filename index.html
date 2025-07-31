@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Výměr rychlosti</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Výměr rychlosti</h1>
+        </header>
+        
+        <main>
+            <!-- Menu -->
+            <nav class="menu">
+                <ul>
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">Soubor</a>
+                        <div class="dropdown-content">
+                            <a href="#" id="print-link">Tisk</a>
+                            <a href="#" id="page-setup-link">Vzhled stránky</a>
+                            <a href="#" id="race-calc-link">Závodní výpočet</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">Zobrazit</a>
+                        <div class="dropdown-content">
+                            <a href="#" id="info-link">Info</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            
+            <!-- Hlavní formulář -->
+            <section id="main-form" class="form-section">
+                <h2>Hlavní výpočet</h2>
+                <form id="speed-calculator">
+                    <div class="form-group">
+                        <label for="otacky">Otáčky motoru:</label>
+                        <input type="number" id="otacky" step="any" value="6000" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="prumer-kol">Velikost kola (R10-R22):</label>
+                        <input type="number" id="prumer-kol" step="any" value="13" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="prevodovy-pomer">Převodový poměr:</label>
+                        <input type="number" id="prevodovy-pomer" step="any" value="0.735" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="staly-prevod">Stálý převod:</label>
+                        <input type="number" id="staly-prevod" step="any" value="4.22" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="sirka-pneu">Šířka pneu:</label>
+                        <input type="number" id="sirka-pneu" step="any" value="165" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="profil-pneu">Profil pneu:</label>
+                        <input type="number" id="profil-pneu" step="any" value="80" required>
+                    </div>
+                    
+                    <fieldset class="precision-selection">
+                        <legend>Volba přesnosti výsledku:</legend>
+                        <div>
+                            <input type="radio" id="jednotky" name="presnost" value="1" checked>
+                            <label for="jednotky">Po jednotkách</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="desetiny" name="presnost" value="0.1">
+                            <label for="desetiny">Po desetinách</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="setiny" name="presnost" value="0.01">
+                            <label for="setiny">Po setinách</label>
+                       </div>
+                        <div>
+                            <input type="radio" id="tisiciny" name="presnost" value="0.001">
+                            <label for="tisiciny">Po tisícinách</label>
+                        </div>
+                    </fieldset>
+                    
+                    <div class="button-group">
+                        <button type="button" id="calculate-btn">Výsledek</button>
+                        <button type="button" id="close-btn">Konec</button>
+                    </div>
+                </form>
+                
+                <div id="result" class="result-section hidden">
+                    <h3>Výsledek:</h3>
+                    <p id="result-value"></p>
+                </div>
+            </section>
+        </main>
+        
+        <!-- Informační okno -->
+        <div id="info-modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Informace o aplikaci</h2>
+                <p>Název programu: Výměr rychlosti (Měření rychlosti)</p>
+                <p>Verze: 5.4.4.4</p>
+                <p>Vývojář: Mark Freeman co.</p>
+                <p>Platforma: Webová aplikace</p>
+                <p>Popis: Slouží pro výpočet rychlosti automobilu.</p>
+                <p>Jazyk programu: Čeština</p>
+                <button id="close-info-btn">Zavřít</button>
+            </div>
+        </div>
+        
+        <!-- Závodní výpočet -->
+        <div id="race-modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Závodní výpočet</h2>
+                <form id="race-calculator">
+                    <div class="form-group">
+                        <label for="race-otacky">Otáčky motoru:</label>
+                        <input type="number" id="race-otacky" step="any" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="race-prevod">Převodový poměr:</label>
+                        <input type="number" id="race-prevod" step="any" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="race-prumer-pneu">Průměr závodního pneu:</label>
+                        <input type="number" id="race-prumer-pneu" step="any" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="race-staly-prevod">Stálý převod:</label>
+                        <input type="number" id="race-staly-prevod" step="any" required>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button type="button" id="race-calculate-btn">Výsledek</button>
+                        <button type="button" id="race-close-btn">Konec</button>
+                    </div>
+                </form>
+                
+                <div id="race-result" class="result-section hidden">
+                    <h3>Výsledek:</h3>
+                    <p id="race-result-value"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
