@@ -201,12 +201,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Načtení uložených nastavení
     loadSettings();
     
-    // Načtení uloženého motivu
+    // Nastavení tmavého režimu jako výchozího
     const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        document.documentElement.setAttribute('data-theme', savedTheme);
-        document.getElementById('theme-toggle').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
-    }
+    const theme = savedTheme ? savedTheme : 'dark';
+    document.documentElement.setAttribute('data-theme', theme);
+    document.getElementById('theme-toggle').textContent = theme === 'dark' ? '☀️' : '🌙';
     
     // Přidání event listenerů pro tlačítka
     document.getElementById('calculate-btn').addEventListener('click', performCalculation);
@@ -217,7 +216,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Přidání event listenerů pro menu
     document.getElementById('print-link').addEventListener('click', printPage);
-    document.getElementById('page-setup-link').addEventListener('click', pageSetup);
     document.getElementById('race-calc-link').addEventListener('click', function() {
         showModal('race-modal');
     });
