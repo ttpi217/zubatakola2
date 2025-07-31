@@ -201,6 +201,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Načtení uložených nastavení
     loadSettings();
     
+    // Načtení uloženého motivu
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        document.getElementById('theme-toggle').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+    }
+    
     // Přidání event listenerů pro tlačítka
     document.getElementById('calculate-btn').addEventListener('click', performCalculation);
     document.getElementById('close-btn').addEventListener('click', function() {
@@ -237,4 +244,16 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Uložení nastavení při opuštění stránky
     window.addEventListener('beforeunload', saveSettings);
+    
+    // Přidání event listeneru pro přepínání tmavého režimu
+    document.getElementById('theme-toggle').addEventListener('click', function() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        
+        // Změna ikony tlačítka
+        this.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+    });
 });
